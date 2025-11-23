@@ -4,18 +4,15 @@ export const routes: Routes = [
 
     {
         path: 'about',
-        loadComponent: () => import('@/pages/about/about-page'),
-        title: 'About Us'
+        loadComponent: () => import('@/pages/about/about-page')
     },
     {
         path: 'pricing',
-        loadComponent: () => import('@/pages/pricing/pricing-page'),
-        title: 'Pricing'
+        loadComponent: () => import('@/pages/pricing/pricing-page')
     },
     {
         path: 'contact',
-        loadComponent: () => import('@/pages/contact/contact-page'),
-        title: 'Contact Us'
+        loadComponent: () => import('@/pages/contact/contact-page')
     },
     {
         path: '**',
