@@ -1,0 +1,25 @@
+<h1 class="text-3xl">Pokemons List</h1>
+<h2 class="text-xl">Current page: {{ currentPage() }}</h2>
+
+<hr class="my-2">
+@if(pokemons().length > 0){
+    <pokemon-list [pokemons]="pokemons()" />
+}
+@else {
+    <pokemon-list-skeleton />
+}
+
+<!-- @if (isLoading()) {
+    <pokemon-list-skeleton />
+}
+
+@if (!isLoading()) {
+    <pokemon-list />
+} -->
+
+
+
+<div class="flex justify-between my-4">
+    <button class="cursor-pointer" (click)="loadPokemos(-1)" [disabled]="currentPage() === 1">Previous</button>
+    <button  class="cursor-pointer" (click)="loadPokemos(1)">Next</button>
+</div>

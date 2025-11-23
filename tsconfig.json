@@ -6,7 +6,9 @@
     "baseUrl": "./",
     "paths": {
       "@/*":["./src/app/*"],
-      "@pages/*": ["./src/app/pages"]
+      "@pages/*": ["./src/app/pages/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@pokemons/*": ["./src/app/pages/pokemons/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

@@ -1,2 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+@import 'tailwindcss';
+
+html,
+body {
+  background-color: #0f1724;
+  color: #ffffff;
+}
+button {
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+button:disabled {
+  background-color: #475569;
+  cursor: not-allowed;
+}
+
+/* --- Clase utilitaria opcional --- */
+@layer utilities {
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* --- Crear la clase de animación --- */
+  .animate-fade-in-custom {
+    animation: fadeIn .5s ease-in-out;
+  }
+}
