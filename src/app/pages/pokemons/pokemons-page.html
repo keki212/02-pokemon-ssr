@@ -20,6 +20,6 @@
 
 
 <div class="flex justify-between my-4">
-    <button class="cursor-pointer" (click)="loadPokemos(-1)" [disabled]="currentPage() === 1">Previous</button>
-    <button  class="cursor-pointer" (click)="loadPokemos(1)">Next</button>
+    <button class="cursor-pointer" [routerLink]="['/pokemons/page', currentPage()! - 1]" [disabled]="currentPage() === 1">Previous</button>
+    <button  class="cursor-pointer" [routerLink]="['/pokemons/page', currentPage()! + 1]">Next</button>
 </div>
