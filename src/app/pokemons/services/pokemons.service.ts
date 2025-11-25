@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { firstValueFrom, map, Observable, tap } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable, tap, throwError } from 'rxjs';
 import { Pokemon, PokemonsResponse, SimplePokemon } from '../interfaces';
 import { PokemonResponse } from '../interfaces/pokemon.interface';
 import { PokemonMapper } from '../mappers/pokemon-maper';
@@ -26,22 +26,41 @@ export class PokemonsServices {
           name: pokemon.name,
         }));
         return simplePokemons;
-      }),
+      })
       //tap(console.log)
     );
   }
 
- public async getPokemonNames(): Promise<string[]> {
-  const observable = this.http.get<PokemonsResponse>(`${this.baseUrl}?offset=0&limit=20`).pipe(
-    map((resp) => resp.results.map((pokemon) => pokemon.name))
-  );
-  
-  return await firstValueFrom(observable);
-}
+  public async getPokemonNames(): Promise<string[]> {
+    const observable = this.http
+      .get<PokemonsResponse>(`${this.baseUrl}?offset=0&limit=20`)
+      .pipe(map((resp) => resp.results.map((pokemon) => pokemon.name)));
+
+    return await firstValueFrom(observable);
+  }
 
   public getPokemonById(id: string): Observable<Pokemon> {
-    return this.http.get<PokemonResponse>(`${this.baseUrl}/${id}`).pipe(
-      map((pokemon) => PokemonMapper.toPokemon(pokemon))
-    );
+    return this.http
+      .get<PokemonResponse>(`${this.baseUrl}/${id}`)
+      .pipe(map((pokemon) => PokemonMapper.toPokemon(pokemon)));
+  }
+
+  public loadPokemon(id: string){
+    return this.http.get<Pokemon>(`${this.baseUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  private handleError(error: HttpErrorResponse){
+    if( error.status === 0){
+      console.log('An error occurred', error.error);
+    }else{
+      console.log(`Backend returned code ${error.status}, body: `, error.error)
+    }
+
+    const errorMessage = error.error ?? 'An error occurred';
+
+    return throwError(() => new Error(errorMessage));
+
   }
 }
